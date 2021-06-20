@@ -10,6 +10,7 @@ import androidx.preference.PreferenceManager
 import com.raywenderlich.listmaker.databinding.MainActivityBinding
 import com.raywenderlich.listmaker.ui.main.MainFragment
 import com.raywenderlich.listmaker.ui.main.MainViewModel
+import com.raywenderlich.listmaker.ui.main.MainViewModelFactory
 
 class MainActivity : AppCompatActivity() {
 
@@ -43,7 +44,9 @@ class MainActivity : AppCompatActivity() {
         builder.setTitle(dialogTitle)
         builder.setView(listTitleEditText)
 
-        builder.setPositiveButton(positiveButtonTitle) { dialog, _ -> dialog.dismiss() }
+        builder.setPositiveButton(positiveButtonTitle) { dialog, _ ->
+            dialog.dismiss()
+        viewModel.saveList(TaskList(listTitleEditText.text.toString()))}
 
         builder.create().show()
     }
