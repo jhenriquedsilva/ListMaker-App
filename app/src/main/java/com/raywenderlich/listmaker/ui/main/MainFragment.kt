@@ -25,6 +25,7 @@ class MainFragment : Fragment() {
         binding = MainFragmentBinding.inflate(inflater, container, false)
 
         binding.listsRecyclerview.layoutManager = LinearLayoutManager(requireContext())
+        binding.listsRecyclerview.adapter = ListSelectionRecyclerViewAdapter()
 
         return binding.root
     }
