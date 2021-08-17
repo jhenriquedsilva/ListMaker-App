@@ -8,11 +8,13 @@ import com.raywenderlich.listmaker.databinding.ListSelectionViewHolderBinding
 
 class ListSelectionRecyclerViewAdapter(private val lists: MutableList<TaskList>): RecyclerView.Adapter<ListSelectionViewHolder>() {
 
+    // Creates the view holder with its layout
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ListSelectionViewHolder {
         val binding = ListSelectionViewHolderBinding.inflate(LayoutInflater.from(parent.context), parent, false)
         return ListSelectionViewHolder(binding)
     }
 
+    // Binds data to the view holder
     override fun onBindViewHolder(holder: ListSelectionViewHolder, position: Int) {
         holder.binding.itemNumber.text = (position + 1).toString()
         holder.binding.itemString.text = lists[position].name
