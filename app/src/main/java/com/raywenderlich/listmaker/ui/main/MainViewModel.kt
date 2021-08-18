@@ -6,12 +6,14 @@ import com.raywenderlich.listmaker.TaskList
 
 class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
 
-    // Takes no parameters and returns nothing
+    // Inform other interested classes when a list is added to the app
     lateinit var onListAdded: (() -> Unit)
 
     // It will be initialized when requested only
+    // It will be populated with the return of retrieveLists()
     val lists: MutableList<TaskList> by lazy { retrieveLists() }
 
+    // Gets data
     private fun retrieveLists(): MutableList<TaskList> {
 
         val sharedPreferencesContents = sharedPreferences.all
@@ -26,9 +28,10 @@ class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
         return taskLists
     }
 
+    // Saves data
     fun saveList(list: TaskList) {
         sharedPreferences.edit().putStringSet(list.name, list.tasks.toHashSet()).apply()
         lists.add(list)
-        onListAdded.invoke()
+        onListAdded()
     }
 }

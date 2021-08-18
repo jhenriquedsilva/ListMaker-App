@@ -25,14 +25,15 @@ class MainActivity : AppCompatActivity() {
         viewModel = ViewModelProvider(this, MainViewModelFactory(PreferenceManager.getDefaultSharedPreferences(this))).get(MainViewModel::class.java)
 
         binding = MainActivityBinding.inflate(layoutInflater)
-        val view = binding.root
-        setContentView(view)
+        setContentView(binding.root)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction().replace(R.id.container, MainFragment.newInstance()).commitNow()
+            supportFragmentManager.beginTransaction()
+                .replace(R.id.container, MainFragment.newInstance())
+                .commitNow()
         }
 
-        binding.fabButton.setOnClickListener{ showCreateListDialog() }
+        binding.fabButton.setOnClickListener { showCreateListDialog() }
     }
 
     private fun showCreateListDialog() {
