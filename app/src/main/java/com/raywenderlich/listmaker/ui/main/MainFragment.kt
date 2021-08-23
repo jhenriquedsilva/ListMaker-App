@@ -22,6 +22,8 @@ class MainFragment : Fragment() {
     private lateinit var viewModel: MainViewModel
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        // The bundle that was passed in MainActivity
+        // val someInt = requireArguments().getInt("some_int")
         binding = MainFragmentBinding.inflate(inflater, container, false)
 
         return binding.root

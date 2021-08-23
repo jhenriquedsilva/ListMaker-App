@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.text.InputType
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
+import androidx.fragment.app.commit
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.raywenderlich.listmaker.databinding.MainActivityBinding
@@ -28,9 +29,16 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         if (savedInstanceState == null) {
-            supportFragmentManager.beginTransaction()
-                .replace(R.id.container, MainFragment.newInstance())
-                .commitNow()
+            // If my activity needs some initial state, I can pass a bundle to it via the add method
+            // Another way to create an activity
+            // val bundle = bundleOf("some_int" to 0)
+            // supportFragmentManager.commit { setReorderingAllowed(true); add<MainFragment>(R.id.fragment_countainer_view, args = bundle) }
+            supportFragmentManager.commit {
+                replace(R.id.container, MainFragment.newInstance())
+                setReorderingAllowed(true)
+                addToBackStack(null)
+            }
+            // supportFragmentManager.beginTransaction().replace(R.id.container, MainFragment.newInstance()).commitNow()
         }
 
         binding.fabButton.setOnClickListener { showCreateListDialog() }
