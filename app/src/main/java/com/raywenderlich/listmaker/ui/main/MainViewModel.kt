@@ -16,11 +16,13 @@ class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
     // Gets data
     private fun retrieveLists(): MutableList<TaskList> {
 
-        val sharedPreferencesContents = sharedPreferences.all
+
+        val sharedPreferencesContents = sharedPreferences.all // Returns Map<String, ?>
         val taskLists = ArrayList<TaskList>()
 
         for (taskList in sharedPreferencesContents) {
-            val itemsHashSet = ArrayList(taskList.value as HashSet<String>)
+            val itemsHashSet = taskList.value as ArrayList<String>
+            // val itemsHashSet = ArrayList(taskList.value as HashSet<String>)
             val list = TaskList(taskList.key, itemsHashSet)
             taskLists.add(list)
         }
@@ -30,7 +32,8 @@ class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
 
     // Saves data
     fun saveList(list: TaskList) {
-        sharedPreferences.edit().putStringSet(list.name, list.tasks.toHashSet()).apply()
+        // sharedPreferences.edit().putStringSet(list.name, list.tasks.toHashSet()).apply()
+        sharedPreferences.edit().putStringSet(list.name, list.tasks.toSet()).apply()
         lists.add(list)
         onListAdded()
     }
