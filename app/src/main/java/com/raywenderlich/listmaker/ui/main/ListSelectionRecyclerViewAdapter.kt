@@ -24,7 +24,8 @@ class ListSelectionRecyclerViewAdapter(private val lists: MutableList<TaskList>)
         return lists.size
     }
 
-    fun listUpdated() {
+    fun listsUpdated() {
+        // Informs the adapter that the data source was updated
         notifyItemInserted(lists.size - 1)
     }
 }

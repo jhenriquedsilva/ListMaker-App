@@ -1,4 +1,4 @@
-package com.raywenderlich.listmaker.ui.detail.ui.detail
+package com.raywenderlich.listmaker.ui.main.detail.ui.detail
 
 import androidx.lifecycle.ViewModelProvider
 import android.os.Bundle
@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.raywenderlich.listmaker.R
-import com.raywenderlich.listmaker.ui.detail.R
 
 class ListDetailFragment : Fragment() {
 

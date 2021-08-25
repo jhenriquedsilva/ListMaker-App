@@ -1,9 +1,9 @@
-package com.raywenderlich.listmaker.ui.detail
+package com.raywenderlich.listmaker.ui.main.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import com.raywenderlich.listmaker.R
-import com.raywenderlich.listmaker.ui.detail.ui.detail.ListDetailFragment
+import com.raywenderlich.listmaker.ui.main.detail.ui.detail.ListDetailFragment
 
 class ListDetailActivity : AppCompatActivity() {
 

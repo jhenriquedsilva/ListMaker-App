@@ -1,4 +1,4 @@
-package com.raywenderlich.listmaker.ui.detail.ui.detail
+package com.raywenderlich.listmaker.ui.main.detail.ui.detail
 
 import androidx.lifecycle.ViewModel
 
