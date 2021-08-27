@@ -58,13 +58,18 @@ class MainActivity : AppCompatActivity() {
         builder.setPositiveButton(positiveButtonTitle) { dialog, _ ->
             dialog.dismiss()
         viewModel.saveList(TaskList(listTitleEditText.text.toString()))}
-
+        showListDetail(taskList)
         builder.create().show()
     }
 
+    // How to create an Intent and share data with another Activity
     private fun showListDetail(list: TaskList) {
         val listDetailIntent = Intent(this, ListDetailActivity::class.java)
         listDetailIntent.putExtra(INTENT_LIST_KEY, list)
         startActivity(listDetailIntent)
+    }
+
+    companion object {
+        const val INTENT_LIST_KEY = "list"
     }
 }
