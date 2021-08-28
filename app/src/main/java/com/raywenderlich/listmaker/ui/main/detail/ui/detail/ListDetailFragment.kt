@@ -7,8 +7,11 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.raywenderlich.listmaker.R
+import com.raywenderlich.listmaker.databinding.ListDetailFragmentBinding
 
 class ListDetailFragment : Fragment() {
+
+    lateinit var binding: ListDetailFragmentBinding
 
     companion object {
         fun newInstance() = ListDetailFragment()
@@ -16,11 +19,9 @@ class ListDetailFragment : Fragment() {
 
     private lateinit var viewModel: ListDetailViewModel
 
-    override fun onCreateView(
-        inflater: LayoutInflater, container: ViewGroup?,
-        savedInstanceState: Bundle?
-    ): View {
-        return inflater.inflate(R.layout.list_detail_fragment, container, false)
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
+        binding = ListDetailFragmentBinding.inflate(inflater, container,false)
+        return binding.root
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
