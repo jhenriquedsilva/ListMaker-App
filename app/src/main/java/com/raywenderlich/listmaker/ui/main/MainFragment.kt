@@ -12,15 +12,22 @@ import com.raywenderlich.listmaker.R
 import com.raywenderlich.listmaker.TaskList
 import com.raywenderlich.listmaker.databinding.MainFragmentBinding
 
-class MainFragment : Fragment(), ListSelectionRecyclerViewAdapter.ListSelectionRecyclerViewClickListener {
+class MainFragment(val clickListener: MainFragmentInteractListener) : Fragment(),
+    ListSelectionRecyclerViewAdapter.ListSelectionRecyclerViewClickListener {
 
     private lateinit var binding:MainFragmentBinding
 
     companion object {
-        fun newInstance() = MainFragment()
+        fun newInstance(clickListener: MainFragmentInteractListener): MainFragment {
+            return MainFragment(clickListener)
+        }
     }
 
     private lateinit var viewModel: MainViewModel
+
+    interface MainFragmentInteractListener {
+        fun listItemTapped(list: TaskList)
+    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // The bundle that was passed in MainActivity

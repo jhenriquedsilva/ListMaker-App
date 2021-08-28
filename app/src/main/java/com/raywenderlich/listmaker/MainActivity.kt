@@ -15,7 +15,7 @@ import com.raywenderlich.listmaker.ui.main.MainFragment
 import com.raywenderlich.listmaker.ui.main.MainViewModel
 import com.raywenderlich.listmaker.ui.main.MainViewModelFactory
 
-class MainActivity : AppCompatActivity() {
+class MainActivity : AppCompatActivity(), MainFragment.MainFragmentInteractListener {
 
     private lateinit var binding: MainActivityBinding
     private lateinit var viewModel: MainViewModel
@@ -29,16 +29,20 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
 
         if (savedInstanceState == null) {
-            // If my activity needs some initial state, I can pass a bundle to it via the add method
-            // Another way to create an activity
-            // val bundle = bundleOf("some_int" to 0)
-            // supportFragmentManager.commit { setReorderingAllowed(true); add<MainFragment>(R.id.fragment_countainer_view, args = bundle) }
+            /*
+            If my activity needs some initial state, I can pass a bundle to it via the add method
+            Another way to create an activity
+            val bundle = bundleOf("some_int" to 0)
+            supportFragmentManager.commit { setReorderingAllowed(true); add<MainFragment>(R.id.fragment_countainer_view, args = bundle) }
             supportFragmentManager.commit {
                 replace(R.id.container, MainFragment.newInstance())
                 setReorderingAllowed(true)
                 addToBackStack(null)
             }
-            // supportFragmentManager.beginTransaction().replace(R.id.container, MainFragment.newInstance()).commitNow()
+            supportFragmentManager.beginTransaction().replace(R.id.container, MainFragment.newInstance()).commitNow()
+            */
+            val mainFragment = MainFragment.newInstance(this)
+            supportFragmentManager.beginTransaction().replace(R.id.container, mainFragment).commitNow()
         }
 
         binding.fabButton.setOnClickListener { showCreateListDialog() }
@@ -57,8 +61,11 @@ class MainActivity : AppCompatActivity() {
 
         builder.setPositiveButton(positiveButtonTitle) { dialog, _ ->
             dialog.dismiss()
-        viewModel.saveList(TaskList(listTitleEditText.text.toString()))}
-        showListDetail(taskList)
+            val taskList = TaskList(listTitleEditText.text.toString())
+            viewModel.saveList(taskList)
+            showListDetail(taskList)
+        }
+
         builder.create().show()
     }
 
@@ -71,5 +78,9 @@ class MainActivity : AppCompatActivity() {
 
     companion object {
         const val INTENT_LIST_KEY = "list"
+    }
+
+    override fun listItemTapped(list: TaskList) {
+        showListDetail(list)
     }
 }
