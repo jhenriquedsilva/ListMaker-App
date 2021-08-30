@@ -2,7 +2,7 @@ package com.raywenderlich.listmaker.ui.main
 
 import android.content.SharedPreferences
 import androidx.lifecycle.ViewModel
-import com.raywenderlich.listmaker.TaskList
+import com.raywenderlich.listmaker.models.TaskList
 
 class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewModel() {
 
@@ -22,8 +22,7 @@ class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
         val taskLists = ArrayList<TaskList>()
 
         for (taskList in sharedPreferencesContents) {
-            val itemsHashSet = taskList.value as ArrayList<String>
-            // val itemsHashSet = ArrayList(taskList.value as HashSet<String>)
+            val itemsHashSet = ArrayList(taskList.value as HashSet<String>)
             val list = TaskList(taskList.key, itemsHashSet)
             taskLists.add(list)
         }
@@ -33,8 +32,7 @@ class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
 
     // Saves data
     fun saveList(list: TaskList) {
-        // sharedPreferences.edit().putStringSet(list.name, list.tasks.toHashSet()).apply()
-        sharedPreferences.edit().putStringSet(list.name, list.tasks.toSet()).apply()
+        sharedPreferences.edit().putStringSet(list.name, list.tasks.toHashSet()).apply()
         lists.add(list)
         onListAdded()
     }

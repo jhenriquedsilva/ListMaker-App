@@ -1,4 +1,4 @@
-package com.raywenderlich.listmaker
+package com.raywenderlich.listmaker.models
 
 import android.os.Parcel
 import android.os.Parcelable

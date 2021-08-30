@@ -8,14 +8,17 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.preference.PreferenceManager
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.raywenderlich.listmaker.R
-import com.raywenderlich.listmaker.TaskList
+import com.raywenderlich.listmaker.models.TaskList
 import com.raywenderlich.listmaker.databinding.MainFragmentBinding
 
 class MainFragment(val clickListener: MainFragmentInteractListener) : Fragment(),
     ListSelectionRecyclerViewAdapter.ListSelectionRecyclerViewClickListener {
 
-    private lateinit var binding:MainFragmentBinding
+    interface MainFragmentInteractListener {
+        fun listItemTapped(list: TaskList)
+    }
+
+    private lateinit var binding: MainFragmentBinding
 
     companion object {
         fun newInstance(clickListener: MainFragmentInteractListener): MainFragment {
@@ -25,14 +28,13 @@ class MainFragment(val clickListener: MainFragmentInteractListener) : Fragment()
 
     private lateinit var viewModel: MainViewModel
 
-    interface MainFragmentInteractListener {
-        fun listItemTapped(list: TaskList)
-    }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View {
         // The bundle that was passed in MainActivity
         // val someInt = requireArguments().getInt("some_int")
         binding = MainFragmentBinding.inflate(inflater, container, false)
+
+        binding.listsRecyclerview.layoutManager = LinearLayoutManager(requireContext())
 
         return binding.root
     }

@@ -1,15 +1,16 @@
 package com.raywenderlich.listmaker
 
-import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
+import android.app.Activity
 import android.os.Bundle
+import android.content.Intent
 import android.text.InputType
 import android.widget.EditText
 import androidx.appcompat.app.AlertDialog
-import androidx.fragment.app.commit
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
 import androidx.preference.PreferenceManager
 import com.raywenderlich.listmaker.databinding.MainActivityBinding
+import com.raywenderlich.listmaker.models.TaskList
 import com.raywenderlich.listmaker.ui.main.detail.ListDetailActivity
 import com.raywenderlich.listmaker.ui.main.MainFragment
 import com.raywenderlich.listmaker.ui.main.MainViewModel
@@ -42,7 +43,7 @@ class MainActivity : AppCompatActivity(), MainFragment.MainFragmentInteractListe
             supportFragmentManager.beginTransaction().replace(R.id.container, MainFragment.newInstance()).commitNow()
             */
             val mainFragment = MainFragment.newInstance(this)
-            supportFragmentManager.beginTransaction().replace(R.id.container, mainFragment).commitNow()
+            supportFragmentManager.beginTransaction().replace(R.id.detail_container, mainFragment).commitNow()
         }
 
         binding.fabButton.setOnClickListener { showCreateListDialog() }
@@ -61,6 +62,7 @@ class MainActivity : AppCompatActivity(), MainFragment.MainFragmentInteractListe
 
         builder.setPositiveButton(positiveButtonTitle) { dialog, _ ->
             dialog.dismiss()
+
             val taskList = TaskList(listTitleEditText.text.toString())
             viewModel.saveList(taskList)
             showListDetail(taskList)

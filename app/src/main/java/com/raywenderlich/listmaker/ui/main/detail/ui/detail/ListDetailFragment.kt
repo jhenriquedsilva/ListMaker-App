@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.LinearLayoutManager
-import com.raywenderlich.listmaker.R
 import com.raywenderlich.listmaker.databinding.ListDetailFragmentBinding
 
 class ListDetailFragment : Fragment() {
@@ -28,6 +27,7 @@ class ListDetailFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         viewModel = ViewModelProvider(requireActivity()).get(ListDetailViewModel::class.java)
+
         val recyclerAdapter = ListItemsRecyclerViewAdapter(viewModel.list)
         binding.listItemRecyclerview.adapter = recyclerAdapter
         binding.listItemRecyclerview.layoutManager = LinearLayoutManager(requireContext())
