@@ -71,15 +71,27 @@ class MainActivity : AppCompatActivity(), MainFragment.MainFragmentInteractListe
         builder.create().show()
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+        if (requestCode == LIST_DETAIL_REST_CODE && resultCode == Activity.RESULT_OK) {
+            // Make sure that there is a content
+            data?.let {
+                viewModel.updateList(data.getParcelableExtra(INTENT_LIST_KEY)!!)
+                viewModel.refreshLists()
+            }
+        }
+    }
+
     // How to create an Intent and share data with another Activity
     private fun showListDetail(list: TaskList) {
         val listDetailIntent = Intent(this, ListDetailActivity::class.java)
         listDetailIntent.putExtra(INTENT_LIST_KEY, list)
-        startActivity(listDetailIntent)
+        startActivityForResult(listDetailIntent, LIST_DETAIL_REST_CODE)
     }
 
     companion object {
         const val INTENT_LIST_KEY = "list"
+        const val LIST_DETAIL_REST_CODE = 123
     }
 
     override fun listItemTapped(list: TaskList) {
