@@ -13,11 +13,16 @@ class MainViewModel(private val sharedPreferences: SharedPreferences) : ViewMode
     // It will be populated with the return of retrieveLists()
     val lists: MutableList<TaskList> by lazy { retrieveLists() }
 
+    lateinit var onTaskAdded: () -> Unit
+    lateinit var list: TaskList
+
+    fun addTask(task: String) {
+        list.tasks.add(task)
+        onTaskAdded()
+    }
+
     // Gets data
     private fun retrieveLists(): MutableList<TaskList> {
-
-
-
         val sharedPreferencesContents = sharedPreferences.all // Returns Map<String, ?>
         val taskLists = ArrayList<TaskList>()
 
