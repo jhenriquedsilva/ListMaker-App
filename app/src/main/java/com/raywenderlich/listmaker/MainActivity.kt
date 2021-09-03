@@ -57,9 +57,10 @@ class MainActivity : AppCompatActivity(), MainFragment.MainFragmentInteractListe
                 R.id.main_fragment_container
             }
 
+            // Fragment manager creates a fragment transaction
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
-                add(fragmentContainerViewId, mainFragment)
+                add(fragmentContainerViewId, mainFragment) // Instantiate the fragment
             }
 
         }
@@ -109,7 +110,7 @@ class MainActivity : AppCompatActivity(), MainFragment.MainFragmentInteractListe
         super.onActivityResult(requestCode, resultCode, data)
         if (requestCode == LIST_DETAIL_REST_CODE && resultCode == Activity.RESULT_OK) {
             // Make sure that there is a content
-            data?.let {
+            data?.let { data ->
                 viewModel.updateList(data.getParcelableExtra(INTENT_LIST_KEY)!!)
                 viewModel.refreshLists()
             }
@@ -136,13 +137,14 @@ class MainActivity : AppCompatActivity(), MainFragment.MainFragmentInteractListe
     }
 
     override fun onBackPressed() {
+
         val listDetailFragment =
             supportFragmentManager.findFragmentById(R.id.list_detail_fragment_container)
 
         if (listDetailFragment == null) {
             super.onBackPressed()
         } else {
-            title = getString(R.string.app_name)
+            title = resources.getString(R.string.app_name)
 
             supportFragmentManager.commit {
                 setReorderingAllowed(true)
